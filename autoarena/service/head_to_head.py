@@ -103,12 +103,13 @@ class HeadToHeadService:
             # 2. insert head-to-head record
             cur.execute(
                 """
-                INSERT INTO head_to_head (response_id_slug, response_a_id, response_b_id, judge_id, winner)
-                SELECT :response_id_slug, :response_a_id, :response_b_id, j.id, :winner
+                INSERT INTO head_to_head (response_id_slug, response_a_id, response_b_id, judge_id, winner, explanation)
+                SELECT :response_id_slug, :response_a_id, :response_b_id, j.id, :winner, :explanation
                 FROM judge j
                 WHERE j.name = :judge_name
                 ON CONFLICT (response_id_slug, judge_id) DO UPDATE SET
-                    winner = IIF(response_a_id = :response_b_id, invert_winner(EXCLUDED.winner), EXCLUDED.winner)
+                    winner = IIF(response_a_id = :response_b_id, invert_winner(EXCLUDED.winner), EXCLUDED.winner),
+                    explanation = EXCLUDED.explanation
             """,
                 dict(
                     **dataclasses.asdict(request),

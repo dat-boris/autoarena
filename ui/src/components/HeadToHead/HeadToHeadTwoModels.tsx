@@ -1,4 +1,4 @@
-import { Box, Button, Group, Kbd, Paper, SimpleGrid, Stack, Text, Title } from '@mantine/core';
+import { Box, Button, Group, Kbd, Paper, SimpleGrid, Stack, Text, TextInput, Title } from '@mantine/core';
 import {
   IconArrowDown,
   IconArrowLeft,
@@ -15,6 +15,7 @@ import { pluralize, usePropOverrides } from '../../lib';
 import { MarkdownContent } from '../MarkdownContent.tsx';
 import { NonIdealState } from '../NonIdealState.tsx';
 import { ControlBar } from './ControlBar.tsx';
+import { set } from 'ramda';
 
 type ShowMode = 'All' | 'With Votes' | 'Without Votes';
 
@@ -36,6 +37,7 @@ export function HeadToHeadTwoModels(props: Props) {
   const [headToHeadIndex, setHeadToHeadIndex] = useState(0);
   const { ref: controlBarRef, height } = useElementSize<HTMLDivElement>();
   const [showMode, setShowMode] = useState<ShowMode>('All');
+  const [explanation, setExplanation] = useState('');
 
   const headToHeads = useMemo(() => {
     switch (showMode) {
@@ -70,7 +72,9 @@ export function HeadToHeadTwoModels(props: Props) {
           response_b_id: headToHead.response_b_id,
           winner: vote,
           human_judge_name: humanJudgeName,
+          explanation: explanation,
         });
+        setExplanation('');
         setHeadToHeadIndex(prev => prev + 1);
       }
     };
@@ -202,6 +206,13 @@ export function HeadToHeadTwoModels(props: Props) {
                   >
                     Both are Good
                   </Button>
+                  <TextInput
+                    placeholder="Explanation"
+                    mt="md"
+                    autoComplete="nope"
+                    value={explanation}
+                    onChange={e => setExplanation(e.currentTarget.value)}
+                  />
                   <Button
                     size="compact-xs"
                     variant="light"

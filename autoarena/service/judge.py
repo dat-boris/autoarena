@@ -58,7 +58,8 @@ class JudgeService:
                     mb.name as model_b,
                     ra.response as response_a,
                     rb.response as response_b,
-                    h2h.winner as winner
+                    h2h.winner as winner,
+                    h2h.explanation as explanation
                 FROM judge j
                 JOIN head_to_head h2h ON j.id = h2h.judge_id
                 JOIN response ra ON ra.id = h2h.response_a_id

@@ -96,7 +96,7 @@ def router(r: Optional[APIRouter] = None) -> APIRouter:
 
     @r.get("/project/{project_slug}/model/{model_id}/download/head-to-heads")
     async def download_model_head_to_heads_csv(project_slug: str, model_id: int) -> StreamingResponse:
-        columns = ["prompt", "model_a", "model_b", "response_a", "response_b", "judge", "winner"]
+        columns = ["prompt", "model_a", "model_b", "response_a", "response_b", "judge", "winner", "explanation"]
         df_h2h = ModelService.get_df_head_to_head(project_slug, model_id)
         model = ModelService.get_by_id(project_slug, model_id)
         return download_csv_response(df_h2h[columns], f"{model.name}-head-to-head")
