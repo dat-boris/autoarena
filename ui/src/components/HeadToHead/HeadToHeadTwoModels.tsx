@@ -15,7 +15,6 @@ import { pluralize, usePropOverrides } from '../../lib';
 import { MarkdownContent } from '../MarkdownContent.tsx';
 import { NonIdealState } from '../NonIdealState.tsx';
 import { ControlBar } from './ControlBar.tsx';
-import { set } from 'ramda';
 
 type ShowMode = 'All' | 'With Votes' | 'Without Votes';
 
