@@ -1,4 +1,4 @@
-import { Box, Button, Group, Kbd, Paper, SimpleGrid, Stack, Text, TextInput, Title } from '@mantine/core';
+import { Box, Button, Group, Kbd, Paper, SimpleGrid, Stack, Text, Textarea, Title } from '@mantine/core';
 import {
   IconArrowDown,
   IconArrowLeft,
@@ -205,12 +205,15 @@ export function HeadToHeadTwoModels(props: Props) {
                   >
                     Both are Good
                   </Button>
-                  <TextInput
+                  <Textarea
                     placeholder="Explanation"
-                    mt="md"
-                    autoComplete="nope"
+                    mt="xs"
+                    autosize
+                    minRows={2}
+                    maxRows={6}
                     value={explanation}
                     onChange={e => setExplanation(e.currentTarget.value)}
+                    styles={{ input: { fontSize: '10px' } }}
                   />
                   <Button
                     size="compact-xs"
